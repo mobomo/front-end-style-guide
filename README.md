@@ -5,7 +5,7 @@ For guidelines that aren't covered here, refer to
 http://taitems.github.io/Front-End-Development-Guidelines/
 
 If this project uses
-[Bootstrap](https://github.com/thomas-mcdonald/bootstrap-sass), then the
+[Bootstrap](https://github.com/twbs/bootstrap-sass), then the
 variables and mixins included are available for use in the SCSS files. Core
 bootstrap functionality should be overridden, never modified. SCSS variables
 should be kept in `sass/_variables.scss`.
