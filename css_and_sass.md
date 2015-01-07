@@ -14,6 +14,7 @@ When writing SCSS, please use the following conventions:
 * Put `@include` declarations at the bottom of the property list (preceded - and followed - by an empty line).
 * Destroy all trailing whitespace.
 
+
     .complicated-rule {
       @extend %some-placeholder-rule;
     
