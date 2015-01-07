@@ -101,8 +101,8 @@ In JavaScript, when defining variables, use comma-separated lists, placed at the
 
 When parsing a string to an integer, it is considered good practice to specify the `radix` parameter - which determines to what base the string should be converted to. The default setting will trigger a radix of 16 whenever the string is lead by a 0. Most beginner and intermediate users are only ever going to be using a radix of `10`.
 
-    alert( parseInt("08") ); // alerts: 2
-    alert( parseInt("08", 10) ); // alerts: 8
+    alert(parseInt("08")); // alerts: 2
+    alert(parseInt("08", 10)); // alerts: 8
 
 ## Avoid Comparing to true and false
 
@@ -132,6 +132,7 @@ Considering that, in the case of small web apps, globals are generally used to s
     var settingA = true;
     var settingB = false;
     var settingC = "test";
+
     // a settings namespace
     var settings = {
       settingA: true,
@@ -146,7 +147,7 @@ But if we're avoiding globals to reduce the chance of conflicts, isn't standardi
         settingA: true
       }
     }
-
+    
     //accessed as
     myAppName.settings.settingA; // true
 
@@ -154,7 +155,7 @@ But if we're avoiding globals to reduce the chance of conflicts, isn't standardi
 
 The camel casing (or *camelCasing*) of JavaScript variables is accepted as the standard in most coding environments. The only exception is the use of uppercase and underscores to denote constants.
 
-    var X_Position = obj.scrollLeft;
+    var X_Position = obj.scrollLeft; // a little tough to read
     var xPosition = obj.scrollLeft; // tidier
     SCENE_GRAVITY = 1; // constant
 
@@ -301,9 +302,9 @@ Now consider the following:
 
     var constructedHTML = "";
     for (var i = 0, len = arr.length; i < len; i++) {
-      constructedHTML += "<li>" + arr[i].title + "</li>"; //no reflow - appending to string
+      constructedHTML += "<li>" + arr[i].title + "</li>"; // no reflow - appending to string
     }
-    document.getElementById("myList").innerHTML = constructedHTML; //reflow
+    document.getElementById("myList").innerHTML = constructedHTML; // reflow
 
 In this scenario, the elements are being constructed within a string. Not a single reflow is created by the loop, as the DOM is not being altered. Only once the array has been completely looped through is the string then applied as the `innerHTML` of an object, causing the only reflow of the function.
 
@@ -328,11 +329,11 @@ The good thing is that there are plenty of alternatives. To be pedantic, it's wo
 Personally, I'm partial to a bit of faux GUID generation. Technically a GUID is generated according to your hardware, but this JavaScript function does the next best thing. The following is a handy function I've borrowed from a [stack overflow post](http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript).
 
     function S4() {
-      return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+      return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
     }
     
     function guid() {
-      return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+      return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
     }
     
     var myID = "static" + guid();

@@ -1,7 +1,5 @@
 # CSS / SCSS
 
-## Documentation
-
 SCSS files that are created for the project should live in `sass/`. Files that are provided by a vendor library (for example, SymbolSet) should be in `sass/vendor`.
 
 Files should be small and concise, focused on building modules. A good example of what should be contained in a file would be adding all type rules in `_type.scss`. Alternately, a file for forms is appropriate. Most files will live under the `sass/modules` directory.
@@ -20,13 +18,42 @@ For more details, read [this article on CSS Tricks](http://css-tricks.com/sass-s
 
 Finally, do not check in compiled CSS.
 
+## Comments
+
+Sass supports two comment styles: multiline (`/* */`) and single-line (`//`). With the exception of any licensing statements that need to be applied, the single-line style syntax should be used, as it will be removed when the CSS is compiled, making for smaller file sizes. More can be [read about this in the documentation](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#comments).
+
+### Debugging comments
+
+While it's normal to leave debugging code enabled during development, it is crucial that this be removed before anything goes to production. There is no need for production code to have these artifacts left in them. Either re-compile using a setting that does not emit the debug code in to the output file, or run the finalized CSS through a minifier that will remove all comments.
+
+## Variables
+
+### Camel Case Variables
+
+Variable names should be camelCased (much like JavaScript variables), as this helps visually differentiate them from class names (which should be dash separated), and more closely aligns them with HTML IDs (which, like the variables, should reference a single object).
+
+    // Bad
+    $some-variable: 0px;
+    $some_variable: 0px;
+    
+    // Good
+    $someVariable: 0px;
+
+### Define a Central Variables File
+
+To make maintenance as easy as possible, the variables used in a project should be defined in a single location. This will help prevent inadvertent overwriting, and will make the codebase easier to maintain in the long run.
+
+### All Colors Are Variables
+
+When applying a color to an element (be it text, border, background, or otherwise), store that color in a variable. If it's used once, it's likely that it will be used again.
+
 ## Understanding the Box Model is Key
 
 The "box model" is a key determining factor in how a browser renders your page. A healthy understanding of it's intricacies will make your job so indescribably easier. The box model denotes the way in which the physical dimensions of a HTML element are calculated. If a block element has a fixed width of say, 100px, then how should the padding, border and margin be placed?
 
 Plenty of websites offer in depth descriptions, but put simply: the standards compliant implementation places the border and padding outside of the specified width. It's best explained with a graphic. Consider this code:
 
-    /* the old way (178 + 20 + 2 = 200) */
+    // the old way (178 + 20 + 2 = 200)
     .foo {
       width: 150px;
       height: 150px;
@@ -49,21 +76,19 @@ Instead, you get 250px. 150px + (2 * 25) + (2 * 25).
 
 If you think it seems odd, you're not alone. There is a fix at hand, and it involves a CSS property called `box-sizing`, and it works in **IE8 and above**. It allows you to choose the exact way in which an elements dimensions are calculated, and its a lifesaver. Parameter support varies and vendor prefixes apply, so consult [caniuse](http://caniuse.com/css3-boxsizing) for specifics.
 
-    /* the old way (178 + 20 + 2 = 200) */
+    // the old way (178 + 20 + 2 = 200)
     .foo {
       width: 178px;
       padding: 10px;
       border: 1px;
     }
     
-    /* a better way */
+    // a better way
     .foo {
       width: 200px;
       padding: 10px;
       border: 1px;
-      -webkit-box-sizing: border-box;
-         -moz-box-sizing: border-box;
-              box-sizing: border-box;
+      box-sizing: border-box;
     }
 
 While it was always possible to mentally calculate widths by removing pixel units from each other (as per the first method), it was never entirely clear how to do so with variable width units like percentages and EMs. There was no other solution at this point besides wrapping elements in parent elements to ensure widths and `padding`/`margin`/`borders` could all be separate.
@@ -87,21 +112,24 @@ So if `position: absolute;` pulls elements out of their normal flow, how do you 
 Using `float`, you would need to wrap the items in a clearfix, float `.one` left, and fiddle with floats and margins on both `.two` and `.three`. You would end up with something similar to the following:
 
     .parent {
-      /* poor man's clearfix */
+      // poor man's clearfix
       width: 310px;
       overflow: auto;
     }
+
     .one {
       width: 200px;
       height: 210px;
       float: left;
     }
+
     .two {
       width: 100px;
       height: 100px;
       float: right;
       margin-bottom: 10px;
     }
+
     .three {
       width: 100px;
       height: 100px;
@@ -112,29 +140,27 @@ As mentioned earlier, there are `z-index` issues to be considered. While the abo
 
 ## Whitespacing
 
-Whitespacing of CSS can be difficult as we chop and change between single and multi line CSS arguments. I'm not going to get into that.
+Break CSS properties out in to their own lines. Any performance benefit gained from single-line rulesets can be applied when the CSS is run through the Sass compiler, and the maintainability gains we get from multi-line rulesets are worth the extra keystrokes.
 
 ### Proper Spacing
 
-    /* BAD */
+    // BAD
     .selector {display:none;background:#ff0000;color:#000000;}
-    
-    /* GOOD - SINGLE LINE */
     .selector { display: none; background: #ff0000; color: #000000; }
     
-    /* GOOD - MULTI-LINE */
+    // GOOD
     .selector {
      display: none;
-     background: #ff0000;
-     color: #000000;
+     background: #f00;
+     color: #000;
     }
 
 ### Same Line Braces
 
     .selector {
       display: none;
-      background: #ff0000;
-      color: #000000;
+      background: #f00;
+      color: #000;
     }
 
 ### Grouping & Indenting Vendor Prefixes
@@ -143,9 +169,7 @@ Whitespacing of CSS can be difficult as we chop and change between single and mu
       background: #fff;
       border: 1px solid #000;
       color: #eaeaea;
-      -webkit-border-radius: 3px;
-        -moz-border-radius: 3px;
-              border-radius: 3px;
+      border-radius: 3px;
     }
 
 ## IDs and Classes
@@ -154,11 +178,11 @@ IDs should be written in camelCase (as is true of JavaScript and CoffeeScript), 
 
 Class names should be written using dash-separation, and if a class is to be used for a JavaScript behavior (state change, hiding/showing, etc), it should be prefixed with `.js-` and should not have any styles (save those needed for the JavaScript behavior) applied to it.
 
-    /* Bad */
+    // Bad
     #some-element
     .someElement
     
-    /* Good */
+    // Good
     #someElement
     .some-module
     .js-toggle-visibility
@@ -172,20 +196,21 @@ Naming should follow the [SMACSS](http://smacss.com/) methodologies / [OOCSS](ht
 Finally, everyone should read this article on [Cleaning Out Your SASS Junk Drawer](http://blackfalcon.roughdraft.io/4436524-clean-out-your-sass-junk-drawer).
 
 ## CSS Shorthand
+
 ### Grouping Properties
 
 Grouping properties together is one of the single most effective methods to greatly reduce the size of a CSS file. It's important to understand how properties are ordered (clockwise - top, right, bottom, left) and how they can be further shortened (top and bottom, left and right). 
 
-    /* LONG CODE IS LONG */
+    // LONG CODE IS LONG
     padding-top: 1px;
     padding-right: 2px;
     padding-bottom: 1px;
     padding-left: 2px;
     
-    /* BETTER */
+    // BETTER
     padding: 1px 2px 1px 2px;
     
-    /* BEST */
+    // BEST
     padding: 1px 2px;
     
     // Alternate SCSS-style
@@ -200,61 +225,60 @@ Grouping properties together is one of the single most effective methods to grea
 
 Assigning a unit type to a property value of zero is redundant. It is not important to know whether an element should be `0px` from the left or `0 elephants` from the left, just that it's flush left.
 
-    /* BAD */
+    // BAD
     padding: 0px 10px;
     
-    /* GOOD */
+    // GOOD
     padding: 0 10px;
 
 ### Commenting Blocks
 
 Commenting large blocks of CSS is a great way of keeping track of multiple style areas within the one stylesheet. Obviously it works better with single line CSS styles, but the effect is not entirely lost on multi-line either. The use of dashes versus equals versus underscores are all up the individual, but this is how I like to manage my stylesheets.
 
-    /*
-     * Horizontal Nav
-     * --------------
-     **/
+    // Horizontal Nav
+    // --------------
+    
     #horizNav {
       width: 100%;
       display: block;
+    
+      li {
+        display: block;
+        float: left;
+        position: relative;
+      
+        a {
+          display: block;
+          height: 30px;
+          text-decoration: none;
+        }
+        
+        ul {
+          display: none;
+          position: absolute;
+          top: 30;
+          left: 0;
+        }
+      }
     }
     
-    #horizNav li {
-      display: block;
-      float: left;
-      position: relative;
-    }
+    // Home Page - Carousel
+    // --------------------
     
-    #horizNav li a {
-      display: block;
-      height: 30px;
-      text-decoration: none;
-    }
-    
-    #horizNav li ul {
-      display: none;
-      position: absolute;
-      top: 30;
-      left: 0;
-    }
-    /*
-     * Home Page - Carousel
-     * --------------------
-     **/
     #carousel {
       width: 960px;
       height: 150px;
       position: relative;
-    }
     
-    #carousel img {
-      display: none;
-    }
+      img {
+        display: none;
+      }
     
-    #carousel .buttons {
-      position: absolute;
-      right: 10px;
-      bottom: 10px;
+      .buttons {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+      }
     }
 
 ## Clearing Floats
@@ -263,8 +287,8 @@ Clearing a `<div>` used to mean extra DOM, because it involved adding an extra c
 
 ### The HTML:
 
-    <div class="parentElement">
-      <div class="childElement">
+    <div class="parent-element">
+      <div class="child-element">
         I'm floated left!
       </div>
       I'm normal text that wraps around the float
@@ -272,11 +296,12 @@ Clearing a `<div>` used to mean extra DOM, because it involved adding an extra c
 
 ### The CSS:
 
-    .parentElement {
+    .parent-element {
       width: 100%;
       overflow: hidden;
     }
-    .childElement {
+    
+    .child-element {
       float: left;
     }
 
@@ -293,7 +318,7 @@ Centering elements horizontally is not exactly rocket science, and I'm sure most
 
 Front end devs have been using this snippet for a long time, without fully understanding why it didn't work vertically. From my understanding, it's important to remember that the parent element will generally have a `height: auto;` on it, and that there is no 100% height in which to vertically center the element. Applying the `position: absolute;` effectively moves the element out into position mode and responds to the pushing and pulling of auto margins and no specific location. 
 
-    .exactMiddle {
+    .exact-middle {
       width: 100px;
       height: 100px;
       position: absolute;
@@ -317,16 +342,14 @@ The vertical centering of text in an element is also straightforward. If the tex
 
 In the earlier discusison of JavaScript feature detection, applying properties if a browser is *any version* of IE is increasingly problematic. Man-of-steel Paul Irish pioneered the use of [IE version](http://paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/) sniffing to address this problem, but [Modernizr](http://www.modernizr.com/) has since come to the rescue. Modernizr places classes on the root `<html>` element specifying whether features are supported. Bleeding edge styles can then easily cascade from (or be removed from) these classes.
 
-    .my_elem {
-      -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.25);
-         -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.25);
-              box-shadow: 0 1px 2px rgba(0,0,0,0.25);
+    .my-elem {
+      box-shadow: 0 1px 2px rgba(0,0,0,0.25);
     }
     
-    /* when box shadow isn't supported, use borders instead */
-    .no-boxshadow .my_elem {
-     border: 1px solid #666;
-     border-bottom-width: 2px;
+    // when box shadow isn't supported, use borders instead
+    .no-boxshadow .my-elem {
+      border: 1px solid #666;
+      border-bottom-width: 2px;
     }
 
 ## You're Not !important
@@ -335,8 +358,13 @@ A reliance upon the `!important` tag is a dangerous thing. The cases that warran
 
 The use of the `!important` tag can be mostly avoided via the better understanding of CSS selector precedence, and how to better target elements. The more specific the selector, the more likely it will be accepted as the applicable style. The following example from vanseodesign demonstrates the specificity at work.
 
-    p { font-size: 12px; }
-    p.bio { font-size: 14px; }
+    p {
+      font-size: 12px;
+    }
+    
+    p.bio {
+      font-size: 14px;
+    }
 
 [Their article](http://www.modernizr.com/) on style precedence does a better job explaining inheritence than I ever could, so please give it a go.
 
@@ -349,31 +377,3 @@ Aggressive degradation dictates that if a particular (older) browser cannot rend
 Put simply, aggressive degradation boils down to: **if your browser can't render a gradient or a box shadow, tough luck**.
 
 While not ideal for every situation, it ensures the timely delivery of projects and that the root product is still usable and not reliant on (validation breaking) hacks.
-
-## Sass/SCSS (...and Less)
-### Comments
-
-Sass supports two comment styles: multiline (`/* */`) and single-line (`//`). With the exception of any licensing statements that need to be applied, the single-line style syntax should be used, as it will be removed when the CSS is compiled, making for smaller file sizes. More can be [read about this in the documentation](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#comments).
-
-#### Debugging comments
-
-While it's normal to leave debugging code enabled during development, it is crucial that this be removed before anything goes to production. There is no need for production code to have these artifacts left in them. Either re-compile using a setting that does not emit the debug code in to the output file, or run the finalized CSS through a minifier that will remove all comments.
-
-### Camel Case Variables
-
-Variable names should be camelCased (much like JavaScript variables), as this helps visually differentiate them from class names (which should be dash separated), and more closely aligns them with HTML IDs (which, like the variables, should reference a single object).
-
-    // Bad
-    $some-variable: 0px;
-    $some_variable: 0px;
-    
-    // Good
-    $someVariable: 0px;
-
-### Define a Central Variables File
-
-To make maintenance as easy as possible, the variables used in a project should be defined in a single location. This will help prevent inadvertent overwriting, and will make the codebase easier to maintain in the long run.
-
-### All Colors Are Variables
-
-When applying a color to an element (be it text, border, background, or otherwise), store that color in a variable. If it's used once, it's likely that it will be used again.
