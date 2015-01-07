@@ -12,14 +12,15 @@ When writing SCSS, please use the following conventions:
   * An easy way to do this is to use the [CSSComb](http://csscomb.com/) tool (there are plugins for most editors; just make sure it's not set to use 'alphabetical').
 * Put `@extends` declarations at the top of the property list (followed by an empty space)
 * Put `@include` declarations at the bottom of the property list (preceded - and followed - by an empty line).
-* Destroy all trailing whitespace.
+* Destroy all trailing whitespace.  
 
+_An example that uses an @extend and an @include:_
 
     .complicated-rule {
       @extend %some-placeholder-rule;
-    
+     
       border: 1px solid #eaeaea;
-    
+     
       @include fancy-mixin;
     }
 
