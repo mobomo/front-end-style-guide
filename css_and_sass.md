@@ -14,6 +14,14 @@ When writing SCSS, please use the following conventions:
 * Put `@include` declarations at the bottom of the property list (preceded - and followed - by an empty line).
 * Destroy all trailing whitespace.
 
+    .complicated-rule {
+      @extend %some-placeholder-rule;
+    
+      border: 1px solid #eaeaea;
+    
+      @include fancy-mixin;
+    }
+
 For more details, read [this article on CSS Tricks](http://css-tricks.com/sass-style-guide).
 
 Finally, do not check in compiled CSS.
