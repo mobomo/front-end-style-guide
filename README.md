@@ -1,8 +1,27 @@
+# Prelude
+
 This is to help define the standards to be followed when developing the UI for any project.
 
 Finally, note that much of this (but certainly not all) was originally written by Tait Brown as part of his outstanding resource, [Front End Dev Guidelines](http://taitems.github.io/Front-End-Development-Guidelines/).
 
-# Precompilation
+# The Front-End Style Guide
+
+## Table of Contents
+
+* [Precompilation](#precompilation)
+* [Editor Configuration](#editor-configuration)
+* [Vendored UI Libraries](#vendored-ui-libraries-like-twitter-bootstrap)
+* [Documentation](#documentation)
+* [Naming Conventions and File Organization](#naming-conventions-and-file-organization)
+* [Accessibility](#accessibility)
+* [JavaScript](#javascript)
+* [jQuery](#jquery-specific)
+* [CSS](#css)
+* [CSS3 and HTML5](#css3--html5)
+* [Sass/SCSS (...and Less)](#sassscss-and-less)
+* [Resources](#resources)
+
+## Precompilation
 
 Before we get in to the meat of this, the following standards need to be stated:
 
@@ -11,13 +30,13 @@ Before we get in to the meat of this, the following standards need to be stated:
 
 These are the Intridea standards, and any deviation from that should be seen as the exception and not the rule.
 
-## Generated Code
+### Generated Code
 
 Only with very rare exception should generated code get checked in to a code repository. The variance in output alone creates far too much noise to offer any benefit, and offers a false sense of activity and security (and is often the source of merge conflicts).
 
-# Editor Configuration
+## Editor Configuration
 
-## Editorconfig
+### Editorconfig
 
 In order to help ensure coding consistency within a project, we rely on a tool called [Editorconfig](http://editorconfig.org/). The boilerplate version that we use is stored in the [dotfiles repository](https://github.com/intridea/dotfiles), but here's what it could look like:
 
@@ -34,17 +53,17 @@ In order to help ensure coding consistency within a project, we rely on a tool c
 
 Most popular editors have support for the [editorconfig plugin](http://editorconfig.org/#download).
 
-## Spacing/Indentation
+### Spacing/Indentation
 
 We follow the standard rails convention of using soft-tabs, and 2-spaces-per-tab for all JS/CS/SCSS files. No hard-tabs please. If you have the editorconfig plugin (and a matching .editorconfig file) in place, then this should be easy to respect.
 
 Eliminate any and all trailing white-space. It's messy, and it causes Git to complain. Most editors support doing this automatically.
 
-# Vendored UI Libraries (like Twitter Bootstrap)
+## Vendored UI Libraries (like Twitter Bootstrap)
 
 If the project uses a pre-built UI Library (like [Bootstrap](https://github.com/twbs/bootstrap-sass)), then the variables and mixins included are available for use in the SCSS files. Core library functionality should be overridden, never modified. SCSS variables should be kept in `sass/_variables.scss`.
 
-# Documentation
+## Documentation
 
 When creating new files, please add a mast-head and brief description of the module. It should look something like (for SCSS, in a file named `_module.scss`):
 
@@ -60,9 +79,9 @@ When creating new files, please add a mast-head and brief description of the mod
 
 Please document as you work through the files. For SCSS, use [KSS](https://github.com/kneath/kss/blob/master/SPEC.md), and for JavaScript follow the [JSDoc](http://usejsdoc.org/about-getting-started.html)/TomDoc pattern.
 
-# Naming conventions and File Organization
-## Files
-### CSS / SCSS
+## Naming Conventions and File Organization
+### Files
+#### CSS / SCSS
 
 SCSS files that are created for the project should live in `sass/`. Files that are provided by a vendor library (for example, SymbolSet) should be in `sass/vendor`.
 
@@ -82,7 +101,7 @@ For more details, read [this article on CSS Tricks](http://css-tricks.com/sass-s
 
 Finally, do not check in compiled CSS.
 
-### JavaScript / CoffeeScript
+#### JavaScript / CoffeeScript
 
 JavaScript/CoffeeScript files that are created for the project should live in scripts. Files that are provided by a vendor library(for example, SymbolSet) should be in `scripts/vendor`.
 
@@ -110,9 +129,9 @@ Models and Collections are to be defined in a single file, stored in an `entitie
 
 If using CoffeeScript, do not check in compiled JS.
 
-# Accessibility
+## Accessibility
 
-## Use a DOCTYPE
+### Use a DOCTYPE
 
 The use of a DOCTYPE is incredibly important, and the omission of it is unacceptable. This will help define which version of (X)HTML is used to process the document, and (importantly) will help prevent IE from rendering in Quirks Mode. [The W3C answers the question of "why"](http://www.w3.org/QA/Tips/Doctype) with:
 
@@ -130,27 +149,27 @@ Ideally, however, you should be using HTML5, which has a much leaner `DOCTYPE`:
 
     <!DOCTYPE html>
 
-## Write Valid Semantic Markup
+### Write Valid Semantic Markup
 
 Writing websites with clean, semantic HTML is something we wish we could always do. Sometimes we find ourselves limited by the way pages were setup by our predecessors, or sometimes we're coding an HTML email. The validity of the HTML should never be compromised, even if to solve a browser specific bug.
 
 Headings should be heirarchically created from `<h2>` onwards, paragraphs should always be in `<p>` tags and so on and so forth. If you write semantic HTML, the resultant page will be cleaner, lighter and easily parsed by search engine spiders. This is one of the simplest SEO fixes you can undertake.
 
-### Which Do You Think Looks Cleaner, This?
+#### Which Do You Think Looks Cleaner, This?
 
     <span class="sectionHeading">A Heading</span>
     <br /> <br />
     Lorem ipsum dolor sit amet. ...
     <br /> <br />
 
-### Or This?
+#### Or This?
 
     <h2>A Heading</h2>
     <p>
       Lorem ipsum dolor sit amet. ...
     </p>
 
-## Fallbacks for Middle Mouse Clicks
+### Fallbacks for Middle Mouse Clicks
 
 One of the most frustrating accessibility and usability flaws of the modern web stems from the remapping of hyperlink click functions. Elements that appear to be hyperlinks may have their single click functionality remapped via JavaScript, breaking middle mouse click (open in new tab) functionality. If they can be opened in a new tab, their href of a single hash sends you back to the same page.
 
@@ -165,7 +184,7 @@ A modern example of a popular website that is contributing to this problem is th
 
 Another alternative is the use of "hashbangs", that remap normal URLs to hash links and fetch pages via AJAX. Libraries that provide hashbang functionality should be able to display the page normally when middle mouse clicked, or load the content from that page into a designated area when clicked normally. But tread carefully, there are plenty of people who believe [hashbangs are breaking the web](http://isolani.co.uk/blog/javascript/BreakingTheWebWithHashBangs).
 
-## Use Microformats
+### Use Microformats
 
 Microformats are a way of making contact information machine readable. hCard classes (not vCard) are used to define the type of content contained within elements. These are then extracted or highlighted by the browser.
 
@@ -178,7 +197,7 @@ If you were to navigate to a page that uses this, you would notice that a progra
 
 For more information: [http://microformats.org/wiki/hcard](http://microformats.org/wiki/hcard)
 
-## Images Need 'Alt' Text
+### Images Need 'Alt' Text
 
 The `<img>` tag requires `alt` text to both validate and meet accessibility guidelines. The text in the `alt` attribute should be descriptive of what the image shows, or is trying to achieve, unless of course the image is not critical.
 
@@ -193,7 +212,7 @@ If the image is of a list bullet or other trivial icons, it is recommended to si
     <img src="bullet.gif" alt="" />
     <!-- good -->
 
-## Use Tables for Tabular Data Only
+### Use Tables for Tabular Data Only
 
 Tables should only ever be used for the presentation of tabular data. The only exception is when composing HTML email, in which a table is almost the only thing supported by soul crushing email clients.
 
@@ -216,23 +235,23 @@ For accessibility, table headers should always be presented using `<th>` element
       </tbody>
     </table>
 
-## Use jQuery & jQuery UI Widgets
+### Use jQuery & jQuery UI Widgets
 
 jQuery and jQuery UI are constructed to look and behave as close to identical as possible on different browsers. jQuery UI is designed to be WAI WCAG 2.0 and WAI ARIA compliant, so using the framework removes any uncertainty about plugins or scripts running on your site.
 
-# JavaScript
+## JavaScript
 
 It should be noted that CoffeeScript is the preferred tool for writing out JavaScript. These guidelines are listed first for a few reasons: first, CoffeeScript is eventually output as JavaScript, so many of the rules still apply, and second, there are often times where JavaScript needs to be written rather than CoffeeScript.
 
 Rules specific to CoffeeScript will follow this section.
 
-## Whitespacing & Formatting
+### Whitespacing & Formatting
 
 Any discussion about formatting, whitespacing and the placement of braces is going to be hotly debated. I guess the simplest rule is that, unless you're willing to completely format a whole document, **respect and maintain the formatting of an existing document**. That means: see same-line braces throughout a JS file, continue to write code with same-line braces. Your code should fail the code review process if it doesn't maintain consistency with the rest of the document.
 
 Consistent formatting makes code more readable, and also means the code can be easily modified with find and replace commands. The coding habits we have picked up are thankfully very similar to what jQuery officially encourages. There are a few minor discrepencies, but again, these are personal issues or things that we think cannot be maintained. [Further Reading](http://docs.jquery.com/JQuery_Core_Style_Guidelines).
 
-### Character Spacing
+#### Character Spacing
 
     // Bad
     if(blah=="foo"){
@@ -243,7 +262,7 @@ Consistent formatting makes code more readable, and also means the code can be e
       foo("bar");
     }
 
-### Same Line Braces
+#### Same Line Braces
 
     // Bad
     if (foo)
@@ -255,7 +274,7 @@ Consistent formatting makes code more readable, and also means the code can be e
       bar();
     }
 
-### Always Using Braces
+#### Always Using Braces
 
     // Bad
     if (foo)
@@ -265,11 +284,11 @@ Consistent formatting makes code more readable, and also means the code can be e
       bar();
     }
 
-### String Handling
+#### String Handling
 
 **Strings should always use double quotes**. Some people are very fond of their C style strings (single quotes), but this leads to conflicting styles within a script. C style string handling dictates that empty and single character strings should be wrapped in single quotations, while phrases and words should be wrapped in double quotations.
 
-### Variable Declarations
+#### Variable Declarations
 
 In JavaScript, when defining variables, use comma-separated lists, placed at the top of the function (effectively [hoisting](https://github.com/getify/You-Dont-Know-JS/blob/master/scope%20&%20closures/ch4.md) them manually):
 
@@ -291,14 +310,14 @@ In JavaScript, when defining variables, use comma-separated lists, placed at the
     // other function stuff here...
   }
 
-## Always Specify the `radix` Parameter When Using `.parseInt()`
+### Always Specify the `radix` Parameter When Using `.parseInt()`
 
 When parsing a string to an integer, it is considered good practice to specify the `radix` parameter - which determines to what base the string should be converted to. The default setting will trigger a radix of 16 whenever the string is lead by a 0. Most beginner and intermediate users are only ever going to be using a radix of `10`.
 
     alert( parseInt("08") ); // alerts: 2
     alert( parseInt("08", 10) ); // alerts: 8
 
-## Avoid Comparing to true and false
+### Avoid Comparing to true and false
 
 Direct comparison to the values of true and false is unnecessary. Sometimes it might be good for clarity, but it's just extra code.
 
@@ -314,7 +333,7 @@ Direct comparison to the values of true and false is unnecessary. Sometimes it m
     // the opposite
     }
 
-## Avoid Polluting the Global Namespace
+### Avoid Polluting the Global Namespace
 
 An over-reliance on global variables is something all of us, are guilty of. Arguments as to why globals are bad are fairly straight forward: the chance of script and variable conflicts is increased, and both the source file and the namespace itself become littered with countless ambiguously named variables.
 
@@ -343,7 +362,7 @@ But if we're avoiding globals to reduce the chance of conflicts, isn't standardi
     //accessed as
     myAppName.settings.settingA; // true
 
-## Camel Case Variables
+### Camel Case Variables
 
 The camel casing (or *camelCasing*) of JavaScript variables is accepted as the standard in most coding environments. The only exception is the use of uppercase and underscores to denote constants.
 
@@ -351,7 +370,7 @@ The camel casing (or *camelCasing*) of JavaScript variables is accepted as the s
     var xPosition = obj.scrollLeft; // tidier
     SCENE_GRAVITY = 1; // constant
 
-## Loop Performance - Cache Array Length
+### Loop Performance - Cache Array Length
 
 Looping is arguably the most important part of JavaScript performance to get right. Shave a millisecond or two off inside of a loop, potentially gain seconds overall. One such way is to cache the length of an array so it doesnt have to be calculated every time the loop is iterated through.
 
@@ -365,11 +384,11 @@ Looping is arguably the most important part of JavaScript performance to get rig
       // GOOD - the length is only looked up once and then cached
     }
 
-### The Exception
+#### The Exception
 
 If you're looping through an array to find and remove a particular item, this will alter the array length. Any time you change the array length by either adding or removing items from inside the loop, you will get yourself into trouble. Consider either re-setting the length or avoid caching it for this particular situation.
 
-## Loop Performance - Use 'break;' & 'continue;'
+### Loop Performance - Use 'break;' & 'continue;'
 
 The ability to step over and out of loops is really useful in avoiding costly loop cycles.
 
@@ -393,7 +412,7 @@ Another problem is skipping over a particular iteration and then continuing on w
       doCostlyStuff();
     }
 
-## Don't Send Too Many Function Parameters
+### Don't Send Too Many Function Parameters
 
 This is a pretty bad idea, more for readability than anything:
 
@@ -411,7 +430,7 @@ It's a much better idea to construct an object before-hand or to pass the object
       gender: "male"
     });
 
-## Remap 'this' to 'self'
+### Remap 'this' to 'self'
 
 When writing object-oriented (OO) JavaScript, the scope of `this` must be understood. Regardless of what design pattern you choose to structure your pseudo-classes, a reference to this is generally the easiest way to refer back to an instance. The moment you begin integrating jQuery helper methods with your pseudo-classes is the moment you notice the changing scope of this.
 
@@ -446,7 +465,7 @@ In the following example I will better utilize the parameters made available wit
       });
     }
 
-## All Bound Up
+### All Bound Up
 
 Now that you know how to properly store a reference to this when changing scope, you should know that if you're storing this as `_self` in order to access a function, you should instead bind the function and store the bound function in a variable. Using bind, which is an ECMAScript 5 feature (made available to non-ES5 environments through the use of libraries such as [Underscore.js](http://underscorejs/) or [Lo-Dash](http://lodash.com/)), will preserve the context of "this" when used with that function.
 
@@ -464,7 +483,7 @@ Now that you know how to properly store a reference to this when changing scope,
     var boundGetX = getX.bind(module);
     boundGetX(); // 81
 
-## Storing Booleans
+### Storing Booleans
 
 Booleans should be easily identifiable by the way they are named. Use prefixes like `is`, `can` or `has` to propose a question.
 
@@ -472,13 +491,13 @@ Booleans should be easily identifiable by the way they are named. Use prefixes l
     obj.canEdit = true;
     user.hasPermission = true;
 
-## Minimizing Repaints & Reflows
+### Minimizing Repaints & Reflows
 
 Repaints and reflows relate to the process of re-rendering the DOM when particular properties or elements are altered. Repaints are triggered when an element's look is changed without altering its layout. Nicole Sullivan describes these changes in a thorough [blog post](http://www.stubbornella.org/content/2009/03/27/reflows-repaints-css-performance-making-your-javascript-slow/) as style changes such as visibility or background-color. Reflows are the more costly alternative, caused by changes that alter the layout of the page. Examples include the addition or removal of elements, changes to an element's width or height, and even resizing the browser window. Worst yet is the domino effect of reflows that cause ancestor, sibling and child elements to reflow.
 
 There is no doubt that both reflows and repaints should be avoided if possible, but how?
 
-### A Reflow Example
+#### A Reflow Example
 
 It's not that the following snippet is "bad code" exactly. But let's assume that the array arr has 10 items.
 
@@ -501,7 +520,7 @@ In this scenario, the elements are being constructed within a string. Not a sing
 
 There are endless types of reflows and repaints that can be avoided, and lucky you gets to go on an read about them. Reading material on the subject matter is plentiful, but most of it is linked to from the excellent starting point that is Nicole Sullivan's [blog post](http://www.stubbornella.org/content/2009/03/27/reflows-repaints-css-performance-making-your-javascript-slow/). There are important lessons to be taken away from this when it comes to a multitude of technologies synonymous with "web 3.0" and HTML5. The lesson above can be directly applied to writing jQuery. It's also important to consider when fiddling with `canvas`, and trying to keep a frame rate in the 30-60 range.
 
-## Don't Use Milliseconds to Generate Unique IDs
+### Don't Use Milliseconds to Generate Unique IDs
 
 There is a method for generating unique IDs that has hung around since the early days of web dev. It involved appending the elapsed milliseconds since January 1, 1970 to your static ID by way of:
 
@@ -529,7 +548,7 @@ Personally, I'm partial to a bit of faux GUID generation. Technically a GUID is 
     
     var myID = "static" + guid();
 
-## Feature Sniff, Don't Browser Sniff
+### Feature Sniff, Don't Browser Sniff
 
 Does the client's browser support geolocation? Does the client's browser support web workers? HTML5 video? HTML5 audio? The answer used to be:
 
@@ -551,7 +570,7 @@ In steps [Modernizr](http://www.modernizr.com/), a JavaScript library developed 
     // with Modernizr
     if (Modernizr.canvas) { ... }
 
-## Readable Milliseconds
+### Readable Milliseconds
 
 A handy way of writing milliseconds in a readable format. Great for beginners, but mostly a gimmick.
 
@@ -560,9 +579,9 @@ A handy way of writing milliseconds in a readable format. Great for beginners, b
     // an extra calculation, but easier to read and modify
     var timeout = 30 * 1000;
 
-# jQuery Specific
+## jQuery Specific
 
-## Chain, Chain, Chain
+### Chain, Chain, Chain
 
 One of the best parts of jQuery is its function chaining. You've probably used it a bit, maybe a few simple calls one after another&hellip; but have you ever traversed the DOM like a mad dog? Take some time to familiarize yourself with the [.end()](http://api.jquery.com/end/) function. It is critical for when you begin stepping up and down the DOM tree from your original selector.
 
@@ -574,7 +593,7 @@ One of the best parts of jQuery is its function chaining. You've probably used i
 
 In the example above, the [.end()](http://api.jquery.com/end/) function is used once we have finished doing things with a particular DOM object and want to traverse back up the DOM to the original object we called. We then load back up and dive back into the DOM.
 
-## Using `data-*` Attributes
+### Using `data-*` Attributes
 
 Those of you who have been writing JavaScript (and not jQuery) for a good length of time are most likely familiar with attributes. Setting them. Getting them. Abusing `rel` and `title` instead&hellip;
 
@@ -588,7 +607,7 @@ Now even though our values are wrapped in quotation marks, they won't be handled
     
     typeof $("#test").data("someNumber"); // number
 
-### Special Casing
+#### Special Casing
 
 It's also important to notice the lower casing required to get these snippets to work. But if you're a great front end developer, you will still want to camel case your data variables. Like many places in JavaScript, a preceding hyphen signifies camel casing of the next letter. The following camel casing of the HTML attribute **does not work** and the same JavaScript used above will return `undefined`.
 
@@ -600,7 +619,7 @@ It's also important to notice the lower casing required to get these snippets to
 
     <div id="test" data-is-bool="true" data-some-number="123"></div>
 
-### '`.stop()`' Collaborate & Listen
+#### '`.stop()`' Collaborate & Listen
 
 Binding jQuery animations to mouse events is a key part of modern web-based user interaction. It's also something that you see done poorly on even the most famous of web sites. [This article](http://www.learningjquery.com/2009/01/quick-tip-prevent-animation-queue-buildup) provides a straight forward example of built up animations and demonstrates how visually jarring they can be. Thankfully it's easily fixed with a single function prefix or a parameter added to `$.animate` calls.
 
@@ -614,11 +633,11 @@ When using `$.animate`, `queue: false` can be added to the parameters to prevent
       queue: false
     }
 
-### Optimize Your Selectors
+#### Optimize Your Selectors
 
 jQuery is pretty laid back. It can do pretty much everything but make you coffee, and I hear that's in the roadmap for 2.0. One thing you have to be careful about is abusing the power that is the [sizzleJS](http://sizzlejs.com/) selector engine. There are two strategies to overcome this: *caching the selector results* and *using efficient selectors*.
 
-#### Caching Selector Results
+##### Caching Selector Results
 
 Do a costly DOM query every time you want to change something, or store a reference to the element? Pretty clear choice.
 
@@ -639,7 +658,7 @@ Ignoring chaining, this is better:
     // later
     $quoteLinks.fadeIn("slow");
 
-### Using Efficient Selectors
+#### Using Efficient Selectors
 
 So jQuery/sizzleJS can use CSS3 selectors well, but what's the real cost? Behind the scenes the browser is hopefully using `document.querySelector()`, but there's also a fair chance it will be breaking down your selector string and querying the DOM manually.
 
@@ -648,7 +667,7 @@ So jQuery/sizzleJS can use CSS3 selectors well, but what's the real cost? Behind
     // looks for the "foo" class only in the pre-defined bar element
     $(".foo",bar);
 
-### A 'for' Loop is Always Quicker Than an 'each()' Loop
+#### A 'for' Loop is Always Quicker Than an 'each()' Loop
 
 No matter what happens in the next few years of browser development, a native `for` loop will always be quicker than a jQuery `$.each()` loop. When you think of what jQuery really is (a library wrapped around native JS functions) you begin to realize that the native underlying JavaScript is always going to be quicker. It's a tradeoff of run speed versus authoring speed.
 
@@ -658,13 +677,13 @@ It is vital that a native `for` loop is always used for performance critical fun
 * Timer intervals
 * Loops within loops
 
-## CoffeeScript
+### CoffeeScript
 
 TBD
 
-# CSS
+## CSS
 
-## Understanding the Box Model is Key
+### Understanding the Box Model is Key
 
 The "box model" is a key determining factor in how a browser renders your page. A healthy understanding of it's intricacies will make your job so indescribably easier. The box model denotes the way in which the physical dimensions of a HTML element are calculated. If a block element has a fixed width of say, 100px, then how should the padding, border and margin be placed?
 
@@ -679,13 +698,13 @@ Plenty of websites offer in depth descriptions, but put simply: the standards co
       margin: 20px;
     }
 
-### What You Would Expect (Quirks Mode)
+#### What You Would Expect (Quirks Mode)
 
 The padding and border are calculated inward, preserving the height and width specifically set to be 150px.
 
 ![Box Model in QuirksMode](images/box-model-quirks.png)
 
-### What You Get (Standards Compliant Mode)
+#### What You Get (Standards Compliant Mode)
 
 Instead, you get 250px. 150px + (2 * 25) + (2 * 25).
 
@@ -712,7 +731,7 @@ If you think it seems odd, you're not alone. There is a fix at hand, and it invo
 
 While it was always possible to mentally calculate widths by removing pixel units from each other (as per the first method), it was never entirely clear how to do so with variable width units like percentages and EMs. There was no other solution at this point besides wrapping elements in parent elements to ensure widths and `padding`/`margin`/`borders` could all be separate.
 
-## Know when to Float, and when to Position
+### Know when to Float, and when to Position
 
 Gone are the days of table based layouts. The moment we admit that we can concentrate our efforts into better understanding the way floats and positions work. There's a particular mental model that needs to be grasped, and I believe this is something best done with practise.
 
@@ -720,7 +739,7 @@ Floats are great for sucking elements out of the DOM and forcing them hard up ag
 
 The arguments that previously held back absolutely positioning elements with CSS have thankfully died down. In theory, positioning allows you to place elements on a page (or within any container for that matter) with Xs and Ys in a straightforward manner that should be familiar to people like Flash developers.
 
-### Understanding Positions
+#### Understanding Positions
 
 It's important to understand one fact when positioning elements with CSS: the position is always relative to the nearest positioned parent element. When people first start dabbling with CSS, there's a common misconception that `position: absolute;` positions right up to the page root. I think this stems from the fact that, yes, without any parent elements with position styles - this is true. It traverses up the DOM tree, not finding any positioned elements, and settles on the root of the page.
 
@@ -754,11 +773,11 @@ Using `float`, you would need to wrap the items in a clearfix, float `.one` left
 
 As mentioned earlier, there are `z-index` issues to be considered. While the above example might seem a bit excessive, once you start thinking with positions, it will opens a world of possibilities.
 
-## Whitespacing
+### Whitespacing
 
 Whitespacing of CSS can be difficult as we chop and change between single and multi line CSS arguments. I'm not going to get into that.
 
-### Proper Spacing
+#### Proper Spacing
 
     /* BAD */
     .selector {display:none;background:#ff0000;color:#000000;}
@@ -773,7 +792,7 @@ Whitespacing of CSS can be difficult as we chop and change between single and mu
      color: #000000;
     }
 
-### Same Line Braces
+#### Same Line Braces
 
     .selector {
       display: none;
@@ -781,7 +800,7 @@ Whitespacing of CSS can be difficult as we chop and change between single and mu
       color: #000000;
     }
 
-### Grouping & Indenting Vendor Prefixes
+#### Grouping & Indenting Vendor Prefixes
 
     .selector {
       background: #fff;
@@ -792,7 +811,7 @@ Whitespacing of CSS can be difficult as we chop and change between single and mu
               border-radius: 3px;
     }
 
-## IDs and Classes
+### IDs and Classes
 
 IDs should be written in camelCase (as is true of JavaScript and CoffeeScript), and are not to be used for styling. We build components, building-blocks with which we can construct our applications. IDs are single-use. IDs should be used to target DOM nodes with JavaScript.
 
@@ -807,7 +826,7 @@ Class names should be written using dash-separation, and if a class is to be use
     .some-module
     .js-toggle-visibility
 
-## Build from small to large
+### Build from small to large
 
 Build up styles starting with the smallest of pieces. If you're building a contact page, build the button, then the form. The header and footer of the page should not need to know anything about the form, even if a form lives in the footer.
 
@@ -815,8 +834,8 @@ Naming should follow the [SMACSS](http://smacss.com/) methodologies / [OOCSS](ht
 
 Finally, everyone should read this article on [Cleaning Out Your SASS Junk Drawer](http://blackfalcon.roughdraft.io/4436524-clean-out-your-sass-junk-drawer).
 
-## CSS Shorthand
-### Grouping Properties
+### CSS Shorthand
+#### Grouping Properties
 
 Grouping properties together is one of the single most effective methods to greatly reduce the size of a CSS file. It's important to understand how properties are ordered (clockwise - top, right, bottom, left) and how they can be further shortened (top and bottom, left and right). 
 
@@ -840,7 +859,7 @@ Grouping properties together is one of the single most effective methods to grea
       left: 2px;
     }
 
-### From 0px to Hero
+#### From 0px to Hero
 
 Assigning a unit type to a property value of zero is redundant. It is not important to know whether an element should be `0px` from the left or `0 elephants` from the left, just that it's flush left.
 
@@ -850,7 +869,7 @@ Assigning a unit type to a property value of zero is redundant. It is not import
     /* GOOD */
     padding: 0 10px;
 
-### Commenting Blocks
+#### Commenting Blocks
 
 Commenting large blocks of CSS is a great way of keeping track of multiple style areas within the one stylesheet. Obviously it works better with single line CSS styles, but the effect is not entirely lost on multi-line either. The use of dashes versus equals versus underscores are all up the individual, but this is how I like to manage my stylesheets.
 
@@ -901,11 +920,11 @@ Commenting large blocks of CSS is a great way of keeping track of multiple style
       bottom: 10px;
     }
 
-## Clearing Floats
+### Clearing Floats
 
 Clearing a `<div>` used to mean extra DOM, because it involved adding an extra clearer element. The better way is to set a specific width on the parent element ("auto" doesn't work in all browsers and scenarios) and an overflow value of either "auto" or "hidden". "Hidden" obviously degrades better, but there are some IE compatibility versions where "auto" works better.
 
-### The HTML:
+#### The HTML:
 
     <div class="parentElement">
       <div class="childElement">
@@ -914,7 +933,7 @@ Clearing a `<div>` used to mean extra DOM, because it involved adding an extra c
       I'm normal text that wraps around the float
     </div>
 
-### The CSS:
+#### The CSS:
 
     .parentElement {
       width: 100%;
@@ -926,7 +945,7 @@ Clearing a `<div>` used to mean extra DOM, because it involved adding an extra c
 
 Alternately, the [micro clear-fix](http://nicolasgallagher.com/micro-clearfix-hack/) is considered stable and cross browser compliant enough to make it to the latest HTML5 boiler plate release. I **highly** recommend you check it out. Although I am not a massive fan of browser-specific CSS and pseudo elements such as `:after`, the micro clearfix is definitely more robust. It also prevents top margins from collapsing which is an absolute life saver.
 
-## Vertical & Horizontal Centering
+### Vertical & Horizontal Centering
 
 Centering elements horizontally is not exactly rocket science, and I'm sure most of you are familiar with the following snippet:
 
@@ -957,7 +976,7 @@ The vertical centering of text in an element is also straightforward. If the tex
       line-height: 32px;
     }
 
-## Feature Sniff, Don't Browser Sniff
+### Feature Sniff, Don't Browser Sniff
 
 In the earlier discusison of JavaScript feature detection, applying properties if a browser is *any version* of IE is increasingly problematic. Man-of-steel Paul Irish pioneered the use of [IE version](http://paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/) sniffing to address this problem, but [Modernizr](http://www.modernizr.com/) has since come to the rescue. Modernizr places classes on the root `<html>` element specifying whether features are supported. Bleeding edge styles can then easily cascade from (or be removed from) these classes.
 
@@ -984,7 +1003,7 @@ The use of the `!important` tag can be mostly avoided via the better understandi
 
 [Their article](http://www.modernizr.com/) on style precedence does a better job explaining inheritence than I ever could, so please give it a go.
 
-## Aggressive Degradation
+### Aggressive Degradation
 
 It's worth noting that this is a personal opinion, and best suited to very specific situations. The stance of aggressive degradation will not be well received in large commercial projects or enterprise solutions relying upon older browsers.
 
@@ -994,18 +1013,18 @@ Put simply, aggressive degradation boils down to: **if your browser can't render
 
 While not ideal for every situation, it ensures the timely delivery of projects and that the root product is still usable and not reliant on (validation breaking) hacks.
 
-# CSS3 & HTML5
-## Feature Sniff with Modernizr
+## CSS3 & HTML5
+### Feature Sniff with Modernizr
 
 I think I've gone on enough about this already. Use [Modernizr](http://www.modernizr.com/) to detect the availability of specific HTML5 and CSS3 features.
 
-## `@font-face` Use and Abuse
+### `@font-face` Use and Abuse
 
 Before you consider embedding a custom font, is important that you inspect the EULA and check if web embedding is allowed. Foundries are understandably reluctant to allow designers and developers the ability to place font files directly on a server which can then be copied by a savvy end user. Particular foundries also prohibit the embedding of particular file types, such as `.TTF` and `.OTF`.
 
 If, after careful consideration, you believe the desired font is web embeddable: head on over to the Font Squirrel [@font-face Generator](http://www.fontsquirrel.com/fontface/generator). It utilizes Fontspring's [bulletproof @font-face structure](http://www.fontspring.com/blog/further-hardening-of-the-bulletproof-syntax) and automatically generates all the required file formats.
 
-## Degradation
+### Degradation
 
 Thankfully browser handling of unsupported HTML5 and CSS3 is already that of a graceful nature. New additions to the list of `<input />` types such as "email", "search" etc. will generally degrade to normal `<input type="text" />` when not natively supported. Similarly, CSS3 properties that aren't supported will simply not appear. Responsive layouts controlled by height and width media queries are simply not applied.
 
@@ -1013,16 +1032,16 @@ Thankfully browser handling of unsupported HTML5 and CSS3 is already that of a g
 
 The resources section below includes a few libraries to help normalize HTML5 and CSS3 functionality across a range of older browsers.
 
-# Sass/SCSS (and Less)
-## Comments
+## Sass/SCSS (...and Less)
+### Comments
 
 Sass supports two comment styles: multiline (`/* */`) and single-line (`//`). With the exception of any licensing statements that need to be applied, the single-line style syntax should be used, as it will be removed when the CSS is compiled, making for smaller file sizes. More can be [read about this in the documentation](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#comments).
 
-### Debugging comments
+#### Debugging comments
 
 While it's normal to leave debugging code enabled during development, it is crucial that this be removed before anything goes to production. There is no need for production code to have these artifacts left in them. Either re-compile using a setting that does not emit the debug code in to the output file, or run the finalized CSS through a minifier that will remove all comments.
 
-## Camel Case Variables
+### Camel Case Variables
 
 Variable names should be camelCased (much like JavaScript variables), as this helps visually differentiate them from class names (which should be dash separated), and more closely aligns them with HTML IDs (which, like the variables, should reference a single object).
 
@@ -1033,16 +1052,16 @@ Variable names should be camelCased (much like JavaScript variables), as this he
     // Good
     $someVariable: 0px;
 
-## Define a Central Variables File
+### Define a Central Variables File
 
 To make maintenance as easy as possible, the variables used in a project should be defined in a single location. This will help prevent inadvertent overwriting, and will make the codebase easier to maintain in the long run.
 
-## All Colors Are Variables
+### All Colors Are Variables
 
 When applying a color to an element (be it text, border, background, or otherwise), store that color in a variable. If it's used once, it's likely that it will be used again.
 
-# Resources
-## Useful Resources
+## Resources
+### Useful Resources
 
 The following resources are vital for the standardisation of code and interaction in a modern web page. They ensure that CSS3 and HTML5 features are made accessible across a range of browsers that previously lacked support.
 
