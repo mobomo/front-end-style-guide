@@ -10,9 +10,9 @@ This document contains universal rules like editor configuration and documentati
 * [CSS and Sass](./css_and_sass.md)
 * [JavaScript and CoffeeScript](./javascript_and_coffeescript.md)
 * Some Specific Libraries:
-** [jQuery](./libraries_and_frameworks/jquery.md)
-** [AngularJS](./libraries_and_frameworks/angularjs.md)
-** [Pre-Fab UI Libraries](./libraries_and_frameworks/prefab_ui_libraries.md)
+  * [jQuery](./libraries_and_frameworks/jquery.md)
+  * [AngularJS](./libraries_and_frameworks/angularjs.md)
+  * [Pre-Fab UI Libraries](./libraries_and_frameworks/prefab_ui_libraries.md)
 
 ## Precompilation
 
