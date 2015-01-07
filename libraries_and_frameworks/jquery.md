@@ -6,11 +6,11 @@ With that out of the way, if you're using jQuery, you should use it the best way
 
 ## Chain, Chain, Chain
 
-One of the best parts of jQuery is its function chaining. You've probably used it a bit, maybe a few simple calls one after another&hellip; but have you ever traversed the DOM like a mad dog? Take some time to familiarize yourself with the [.end()](http://api.jquery.com/end/) function. It is critical for when you begin stepping up and down the DOM tree from your original selector.
+One of the best parts of jQuery is its function chaining. You've probably used it a bit, maybe a few simple calls one after another&hellip; but have you ever traversed the DOM like a mad dog? Take some time to familiarize yourself with the [`.end()`](http://api.jquery.com/end/) function. It is critical for when you begin stepping up and down the DOM tree from your original selector.
 
     $(".quote")
       .hide()
-      .find("a").text("Click here").bind("click",doStuff).end()
+      .find("a").text("Click here").bind("click", doStuff).end()
       .parent().removeClass().addClass("testimonial").draggable().end()
       .fadeIn("slow");
 
@@ -48,7 +48,7 @@ Binding jQuery animations to mouse events is a key part of modern web-based user
 
 When using `$.animate`, `queue: false` can be added to the parameters to prevent chaining. Animation shortcuts such as `$.fadeIn` or `$.slideDown` do not take `queue` settings. Instead you have to pre-empt these animations with the `$.stop` method of pausing currently executing animations. Certain scenarios require the animation to stop dead in its tracks, or to jump to the end of the transition. It is recommended you familiarize yourself with the [documentation](http://api.jquery.com/stop/) of the parameters `clearQueue` and `jumpToEnd`, because god knows I can't help you there.
 
-    $("selector").stop(true,true).fadeOut();
+    $("selector").stop(true, true).fadeOut();
     $("selector").animate({
       property: value
     }, {
@@ -90,7 +90,7 @@ So jQuery/sizzleJS can use CSS3 selectors well, but what's the real cost? Behind
     // an ID search is the quickest possible query, then it just takes a list of the childNodes and matches the class
     $("#quoteList").children(".quotes");
     // looks for the "foo" class only in the pre-defined bar element
-    $(".foo",bar);
+    $(".foo", bar);
 
 ## A 'for' Loop is Always Quicker Than an 'each()' Loop
 
